@@ -15,6 +15,8 @@ module Elmas
       allow_access(agent)
 
       code = URI.unescape(agent.page.uri.query.split("=").last)
+      puts agent.page.uri.query
+      puts agent.page.uri
       OauthResponse.new(get_access_token(code))
     end
 
