@@ -17,7 +17,10 @@ module Elmas
       code = URI.unescape(agent.page.uri.query.split("=").last)
       puts agent.page.uri.query
       puts agent.page.uri
-      puts agent.body
+      begin
+        puts agent.page.body
+      rescue
+      end
       OauthResponse.new(get_access_token(code))
     end
 
