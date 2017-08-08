@@ -57,6 +57,7 @@ module Elmas
     def get_access_token(code, _options = {})
       conn = Faraday.new(url: base_url) do |faraday|
         faraday.request :url_encoded
+        faraday.response :logger, ::Logger.new(STDOUT), bodies: true
         faraday.adapter Faraday.default_adapter
       end
       params = access_token_params(code)
@@ -108,6 +109,8 @@ module Elmas
   class OauthResponse < Response
     def body
       JSON.parse(@response.body)
+    rescue StandardError => e
+      puts @response.inspect
     end
 
     def access_token
